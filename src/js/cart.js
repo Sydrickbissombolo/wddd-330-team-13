@@ -3,9 +3,20 @@ import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
   const cartList = document.querySelector(".product-list");
+  const cartFooter = document.querySelector(".cart-footer");
+  const cartTotal = document.querySelector(".cart-total");
 
-  cartList.innerHTML = ""; // Clear existing content
+  cartList.innerHTML = ""; // Clear existing cart contents
 
+  if (cartItems.length === 0) {
+    cartFooter.classList.add("hide");
+    return;
+  }
+
+  // Show the footer if items exist
+  cartFooter.classList.remove("hide");
+
+  // Render each cart item
   cartItems.forEach((item) => {
     const itemHTML = `
       <li class="cart-card divider">
@@ -24,7 +35,14 @@ function renderCartContents() {
     cartList.insertAdjacentHTML("beforeend", itemHTML);
   });
 
-  // Add event listeners to all remove buttons
+  // Calculate total
+  const total = cartItems.reduce(
+    (sum, item) => sum + Number(item.FinalPrice),
+    0,
+  );
+  cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+
+  // Add remove button event listeners
   const removeButtons = document.querySelectorAll(".remove-button");
   removeButtons.forEach((button) => {
     button.addEventListener("click", removeFromCart);
@@ -35,7 +53,7 @@ function removeFromCart(e) {
   const productId = e.target.dataset.id;
   let cartItems = getLocalStorage("so-cart") || [];
 
-  // Remove the selected item
+  // Filter out the removed item
   cartItems = cartItems.filter((item) => item.Id !== productId);
 
   // Save updated cart and re-render
