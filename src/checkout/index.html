@@ -1,11 +1,11 @@
 <!doctype html>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Checkout</title>
     <link rel="stylesheet" href="css/style.css" />
+    <script src="../js/checkout.js" type="module"></script>
   </head>
 
   <body>
@@ -13,54 +13,136 @@
 
     <main class="divider checkout">
       <h2>Review & Place your Order</h2>
+      <p id="error-message" class="error hidden"></p>
       <section class="checkout-form">
         <form name="checkout">
+          <input type="hidden" name="orderDate" id="orderDate" />
+
           <fieldset>
-            <legend></legend>
+            <legend>Shipping Information</legend>
             <div class="checkout__name">
               <label for="fname">First Name</label>
-              <input type="text" name="fname" id="fname" required />
+              <input
+                type="text"
+                name="fname"
+                id="fname"
+                required
+                placeholder="John"
+                minlength="2"
+                title="Enter your first name"
+              />
+
               <label for="lname">Last Name</label>
-              <input type="text" name="lname" id="lname" required />
+              <input
+                type="text"
+                name="lname"
+                id="lname"
+                required
+                placeholder="Doe"
+                minlength="2"
+                title="Enter your last name"
+              />
             </div>
+
             <div class="checkout__address">
-              <label for="address">Address</label>
-              <input type="text" name="address" id="address" required />
+              <label for="street">Street Address</label>
+              <input
+                type="text"
+                name="street"
+                id="street"
+                required
+                placeholder="123 Main St"
+                title="Enter your full street address"
+              />
+
               <label for="city">City</label>
-              <input type="text" name="city" id="city" required />
+              <input
+                type="text"
+                name="city"
+                id="city"
+                required
+                placeholder="Salt Lake City"
+                title="Enter your city"
+              />
+
               <label for="state">State</label>
-              <input type="text" name="state" id="state" required />
+              <input
+                type="text"
+                name="state"
+                id="state"
+                required
+                placeholder="UT"
+                maxlength="2"
+                title="Use 2-letter state abbreviation (e.g., UT)"
+              />
+
               <label for="zip">Zip</label>
-              <input type="text" name="zip" id="zip" required />
+              <input
+                type="text"
+                name="zip"
+                id="zip"
+                required
+                placeholder="84101"
+                pattern="\d{5}"
+                title="Enter a 5-digit zip code"
+              />
             </div>
           </fieldset>
+
           <fieldset>
-            <legend>Payment</legend>
+            <legend>Payment Information</legend>
             <div class="checkout__payment">
               <label for="cardNumber">Card Number</label>
-              <input type="text" name="cardNumber" id="cardNumber" required />
-              <label for="exp">Expiration</label>
-              <input type="text" name="exp" id="exp" required />
-              <label for="cvv">CVV</label>
-              <input type="text" name="cvv" id="cvv" required />
+              <input
+                type="text"
+                name="cardNumber"
+                id="cardNumber"
+                required
+                placeholder="1234 5678 9012 3456"
+                pattern="\d{13,16}"
+                title="Enter a valid 13–16 digit card number"
+              />
+
+              <label for="expiration">Expiration (MM/YY)</label>
+              <input
+                type="text"
+                name="expiration"
+                id="expiration"
+                required
+                placeholder="12/25"
+                pattern="(0[1-9]|1[0-2])\/?([0-9]{2})"
+                title="Enter expiration date in MM/YY format"
+              />
+
+              <label for="code">CVV</label>
+              <input
+                type="text"
+                name="code"
+                id="code"
+                required
+                placeholder="123"
+                pattern="\d{3,4}"
+                title="Enter 3 or 4-digit CVV code"
+              />
             </div>
           </fieldset>
+
           <fieldset class="checkout-summary">
             <legend>Order Summary</legend>
-
             <div class="order__summary">
               <div>Items</div>
-              <div id="numberItems"></div>
+              <div id="num-items"></div>
               <div>Subtotal</div>
               <div id="cartTotal"></div>
-              <div>Shipping</div>
               <div>Tax</div>
               <div id="tax"></div>
+              <div>Shipping</div>
               <div id="shipping"></div>
               <div>Total</div>
-              <div id="total"></div>
+              <div id="orderTotal"></div>
             </div>
           </fieldset>
+
           <button type="submit" id="checkoutSubmit">Checkout</button>
         </form>
       </section>

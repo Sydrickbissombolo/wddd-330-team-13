@@ -290,6 +290,33 @@ button {
   grid-column: 3;
 }
 
+.error {
+  color: red;
+  font-weight: bold;
+}
+.hidden {
+  display: none;
+}
+
+.alert-message {
+  background-color: #ffe5e5;
+  border: 1px solid #ff0000;
+  color: #800000;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  position: relative;
+  font-weight: bold;
+}
+
+.alert-message .close-alert {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
@@ -304,10 +331,6 @@ button {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
   }
-}
-
-.hide {
-  display: none;
 }
 
 footer {
